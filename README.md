@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="">
-    <img src="Stock_figure.png"
+    <img src="Imagens\Stock_figure.png"
          alt="version">
   </a>
 
@@ -65,60 +65,60 @@ Somando essa observação com o fato de que ambos os contextos geopolitico e eco
 Dessa forma, para o nosso modelo estamos utilizando uma base histórica diária do mercado de ações, com valores que se iniciam em jan/21 - até presente data.
 
 
-<figure style="text-align: center;">
+<p align="center">
   <a href=" ">
-    <img src=".github\images\webapp-architecture.png" alt="webapp-architecture">
+    <img src="Imagens\Fechamento Ibovespa últimos 10 anos.PNG" alt="webapp-architecture">
   </a>
-  <figcaption style="font-size: smaller;">Figura 1</figcaption>
-</figure>
+  <figcaption style="font-size: smaller; text-align: center;">Figura 1</figcaption>
+</p>
 
 
 Prosseguindo com a analise exploratória, criamos mais um gráfico com os valores diários da Ibovespa de jan/21 até ago/23, para analisar o comportamento dos valores (figura 2).
 
 Observando o gráfico não encontramos uma tendencia evidente dos dados.
 
-<figure style="text-align: center;">
+<p align="center">
   <a href=" ">
-    <img src=".github\images\webapp-architecture.png" alt="webapp-architecture">
+    <img src="Imagens\Fechamento Ibovespa-2021-2023.PNG" alt="webapp-architecture">
   </a>
   <figcaption style="font-size: smaller;">Figura 2</figcaption>
-</figure>
-
+</p>
 
 Assim, criamos um gráfico com a média e o desvio padrão junto dos dados originais (figura 3);
 
-<figure style="text-align: center;">
-  <a href=" ">
-    <img src=".github\images\webapp-architecture.png" alt="webapp-architecture">
+<p align="center">
+    <img src="Imagens\Fechamento-media-desvio-padrao.PNG">
   </a>
   <figcaption style="font-size: smaller;">Figura 3</figcaption>
-</figure>
+</p>
 
 O próximo gráfico é um histrograma, indicando a distribuição dos dados (figura 4);
 
-<figure style="text-align: center;">
+
+<p align="center">
   <a href=" ">
-    <img src=".github\images\webapp-architecture.png" alt="webapp-architecture">
-  </a>
-  <figcaption style="font-size: smaller;">Figura 4</figcaption>
-</figure>
+    <img src="Imagens\Histrograma-ibovespa.PNG">
+ </a>
+  <figcaption style="font-size: smaller;">Figura 5</figcaption>
+</p>
 
 E por fim, temos um gráfico analisando a % de variancia acumulada das ações (figura 5), indicando o desempenho do mercado nos ultimos anos:
 
-<figure style="text-align: center;">
+<p align="center">
   <a href=" ">
-    <img src=".github\images\webapp-architecture.png" alt="webapp-architecture">
-  </a>
+    <img src="Imagens\Acumulo-variacao-porcental-ibovespa.PNG">
+   </a>
   <figcaption style="font-size: smaller;">Figura 5</figcaption>
-</figure>
+</p>
 
 # Arquitetura
 Esta é uma visão geral da arquitetura do TechNews.
 
 <p align="center">
   <a href="">
-    <img src=".github\images\architecture-overview.png" alt="overview-architecture">
+    <img src=".github\images\architecture-overview.png">
   </a>
+  <figcaption style="font-size: smaller;">Figura 5</figcaption>
 </p>
 
 ## Web App
