@@ -16,39 +16,101 @@
 ## Sumário
 
 - [Sobre](#sobre)
-- [Tecnologias](#tecnologias)
-- [Suporte ao Browser](#suporte-ao-browser)
-- [Arquitetura](#arquitetura)
-    - [Web App](#web-app)
-    - [Core API](#core-api)
-    - [Auth API (Authorization Server)](#auth-api-authorization-server)
-- [Segurança](#segurança)
-    - [Rotação das Chaves](#rotação-das-chaves)
-    - [Prevenção contra possíveis ataques](#prevenção-contra-possíveis-ataques)
-- [CI / CD](#ci--cd)
-- [Executando a aplicação](#executando-a-aplicação)
-    - [Docker](#docker)
+- [Bibliotecas](#bibliotecas)
+- [Analise exploratoria de dados (EDA)](#analise-exploratoria-de-dados-eda)
+- [Métodos aplicados](#metodos-aplicados)
+- [Resultados](#resultados)
+  
 
 
 # Sobre
 Este projeto foi criado para atender os requisitos do projeto Tech Challenge da [Faculdade de Tecnologia - FIAP](https://postech.fiap.com.br/?gclid=Cj0KCQjwnf-kBhCnARIsAFlg49228y9z3y6lf_mWZEekgcxZRZBDavxtRT-zAUNs33TZOJtXpGVMNlAaAue5EALw_wcB).<br>
-O sistema do TechNews consiste em três aplicações: 
-- Uma aplicação Web App MVC que exibe as notícias do blog.
-- Uma API de gerenciamento das notícias (requer autenticação OAuth2).
-- Uma API dedicada ao gerenciamento, autenticação e autorização dos usuários.
+O Tech Challenge foi ser divido em três etapas:
+- Aplicação de um modelo de machine learning para projetar os valores de fechamento da bolsa de valores (Ibovespa).
+- Atinigir uma acurácia maior do que 70% com o modelo.
+- Justificar métodos realizados e os resultados obtidos.
 
-# Tecnologias
+# Bibliotecas
 
-| Web App | API's | ORM | Database
-| --- | --- | --- | --- |
-| [![bootstrap-version](https://img.shields.io/badge/Bootstrap-5.3.1-purple)](https://getbootstrap.com/)<br>[![fontawesome-version](https://img.shields.io/badge/Font_Awesome-6.4.0-yellow)](https://fontawesome.com/)<br>[![aspnetcore-version](https://img.shields.io/badge/ASP.NET_Core_MVC-7.0-blue)](https://learn.microsoft.com/pt-br/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-7.0)| [![aspnetcore-version](https://img.shields.io/badge/ASP.NET_Core-7.0-blue)](https://learn.microsoft.com/pt-br/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-7.0) | [![dapper-version](https://img.shields.io/badge/EF_Core-7.0-red)](https://learn.microsoft.com/en-us/ef/core/) | ![database](https://img.shields.io/badge/SQL_Server-gray)
+Foram utilizadas as seguintes bibliotecas para o desenvolvimento do projeto:
 
-# Suporte ao Browser
+-Pandas (https://pandas.pydata.org/);
 
-| <img src="https://user-images.githubusercontent.com/1215767/34348387-a2e64588-ea4d-11e7-8267-a43365103afe.png" alt="Chrome" width="16px" height="16px" /> Chrome | <img src="https://user-images.githubusercontent.com/1215767/34348590-250b3ca2-ea4f-11e7-9efb-da953359321f.png" alt="IE" width="16px" height="16px" /> Internet Explorer | <img src="https://user-images.githubusercontent.com/1215767/34348380-93e77ae8-ea4d-11e7-8696-9a989ddbbbf5.png" alt="Edge" width="16px" height="16px" /> Edge | <img src="https://user-images.githubusercontent.com/1215767/34348394-a981f892-ea4d-11e7-9156-d128d58386b9.png" alt="Safari" width="16px" height="16px" /> Safari | <img src="https://user-images.githubusercontent.com/1215767/34348383-9e7ed492-ea4d-11e7-910c-03b39d52f496.png" alt="Firefox" width="16px" height="16px" /> Firefox |
-| :---------: | :---------: | :---------: | :---------: | :---------: |
-| Yes | 11+ | Yes | Yes | Yes |
+-Numpy (https://numpy.org/);
 
+-Statsmodels (https://www.statsmodels.org/stable/index.html);
+
+-Matplotlib (https://matplotlib.org/);
+
+-Seaborn (https://seaborn.pydata.org/);
+
+-Pmdarima (https://pypi.org/project/pmdarima/);
+
+-Prophet (https://pypi.org/project/prophet/);
+
+-Sklearn (https://scikit-learn.org/stable/).
+
+# Analise exploratoria de dados (EDA)
+
+Iniciamos o projeto com a análise dos dados.
+
+Exportamos uma base de dados histórica dos últimos 10 anos da Ibovespa, com o valor do fechamento mensal da bolsa de valores (https://br.investing.com/indices/bovespa-historical-data), para avaliar o comportamento dos dados.
+
+Através do gráfico obtido (figura 1), podemos observar que antes de 2021, os valores tinham um comportamento que evidenciava uma certa tendencia a crescimento do fechamento. 
+
+Após o ano de 2021, o gráfico começa a apresentar um comportamento diferente, em comparação com o passado, que vem se mantendo até presente data.
+
+Somando essa observação com o fato de que ambos os contextos geopolitico e economico atuais são bem divergentes dos anos anteriores, consideramos que os valores anteriores a 2021 poderiam levar o modelo a uma tendencia incorreta da situação atual da bolsa de valores.
+
+Dessa forma, para o nosso modelo estamos utilizando uma base histórica diária do mercado de ações, com valores que se iniciam em jan/21 - até presente data.
+
+
+<figure style="text-align: center;">
+  <a href=" ">
+    <img src=".github\images\webapp-architecture.png" alt="webapp-architecture">
+  </a>
+  <figcaption style="font-size: smaller;">Figura 1</figcaption>
+</figure>
+
+
+Prosseguindo com a analise exploratória, criamos mais um gráfico com os valores diários da Ibovespa de jan/21 até ago/23, para analisar o comportamento dos valores (figura 2).
+
+Observando o gráfico não encontramos uma tendencia evidente dos dados.
+
+<figure style="text-align: center;">
+  <a href=" ">
+    <img src=".github\images\webapp-architecture.png" alt="webapp-architecture">
+  </a>
+  <figcaption style="font-size: smaller;">Figura 2</figcaption>
+</figure>
+
+
+Assim, criamos um gráfico com a média e o desvio padrão junto dos dados originais (figura 3);
+
+<figure style="text-align: center;">
+  <a href=" ">
+    <img src=".github\images\webapp-architecture.png" alt="webapp-architecture">
+  </a>
+  <figcaption style="font-size: smaller;">Figura 3</figcaption>
+</figure>
+
+O próximo gráfico é um histrograma, indicando a distribuição dos dados (figura 4);
+
+<figure style="text-align: center;">
+  <a href=" ">
+    <img src=".github\images\webapp-architecture.png" alt="webapp-architecture">
+  </a>
+  <figcaption style="font-size: smaller;">Figura 4</figcaption>
+</figure>
+
+E por fim, temos um gráfico analisando a % de variancia acumulada das ações (figura 5), indicando o desempenho do mercado nos ultimos anos:
+
+<figure style="text-align: center;">
+  <a href=" ">
+    <img src=".github\images\webapp-architecture.png" alt="webapp-architecture">
+  </a>
+  <figcaption style="font-size: smaller;">Figura 5</figcaption>
+</figure>
 
 # Arquitetura
 Esta é uma visão geral da arquitetura do TechNews.
