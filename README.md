@@ -18,7 +18,8 @@
 - [Sobre](#sobre)
 - [Bibliotecas](#bibliotecas)
 - [Analise exploratoria de dados (EDA)](#analise-exploratoria-de-dados-eda)
-- [Métodos aplicados](#metodos-aplicados)
+- [Métodos aplicados](#métodos-aplicados)
+- [Modelos preditivos](#modelos-preditivos)
 - [Resultados](#resultados)
   
 
@@ -87,8 +88,9 @@ Observando o gráfico não encontramos uma tendencia evidente dos dados.
 Assim, criamos um gráfico com a média e o desvio padrão junto dos dados originais (figura 3);
 
 <p align="center">
-    <img src="Imagens\Fechamento-media-desvio-padrao.PNG">
-  </a>
+  <a href=" ">
+  <img src="Imagens\Fechamento-media-desvio-padrao.PNG" alt="webapp-architecture">
+   </a>
   <figcaption style="font-size: smaller;">Figura 3</figcaption>
 </p>
 
@@ -99,7 +101,7 @@ O próximo gráfico é um histrograma, indicando a distribuição dos dados (fig
   <a href=" ">
     <img src="Imagens\Histrograma-ibovespa.PNG">
  </a>
-  <figcaption style="font-size: smaller;">Figura 5</figcaption>
+  <figcaption style="font-size: smaller;">Figura 4</figcaption>
 </p>
 
 E por fim, temos um gráfico analisando a % de variancia acumulada das ações (figura 5), indicando o desempenho do mercado nos ultimos anos:
@@ -111,17 +113,109 @@ E por fim, temos um gráfico analisando a % de variancia acumulada das ações (
   <figcaption style="font-size: smaller;">Figura 5</figcaption>
 </p>
 
-# Arquitetura
-Esta é uma visão geral da arquitetura do TechNews.
+# Métodos aplicados
+
+Após definido o período de interesse, fizemos a decomposição dos dados afim de determinar os seguintes pontos:
+
+-Tendencia (direção de uma série temporal ao longo do tempo);
+
+-Sazonalidade (fenômenos que ocorrem durante o tempo se repetem a cada período idêntico de tempo);
+
+-Resíduo (variação aleatória de uma série temporal, que não pode ser explicada por algum componente. Os ruídos podem ocorrer definindo fatores externos imprevisíveis ou por erros de medições. );
+
+A figura 6 demonstra essa decomposição.
+
 
 <p align="center">
   <a href="">
-    <img src=".github\images\architecture-overview.png">
+    <img src="Imagens\decomposicao-dos-dados.PNG">
   </a>
-  <figcaption style="font-size: smaller;">Figura 5</figcaption>
+  <figcaption style="font-size: smaller;">Figura 6</figcaption>
 </p>
 
-## Web App
+Podemos observar que os dados não apresentam uma tendência explicita, porém para determinar se de fato nossa série temporal é estacionária, precisamos realizar o teste de Dickey-Fuller.
+
+Consideramos uma série estacionária quando a mesma apresenta propriedade estatísticas estáveis ao longo do tempo (média e variância).
+
+Para determinados modelos, como por exemplo o ARIMA, é necessário que a série temporal seja estacionária. 
+
+O teste de Dickey-Fuller apresenta parametros que servem para determinamos se nossa série é estacionária ou não. No caso, o teste revelou que nossa série era não estacionária (figura 7), pois o p-value apresentado era acima de 0.05 e os valores do teste estatístico era maior do que os valores críticos.
+
+<p align="center">
+  <a href="">
+    <img src="Imagens\Resultado-primeiro-teste-adf.PNG">
+  </a>
+  <figcaption style="font-size: smaller;">Figura 7</figcaption>
+</p>
+
+Assim, era necessário que transformassemos essa série em estacionária para podermos aplicar o modelo ARIMA.
+
+Para tanto, aplicamos o método da diferenciação (figura 8):
+
+<p align="center">
+  <a href="">
+    <img src="Imagens\dados-estacionarios-primeira-diferenciacao-aplicada.PNG">
+  </a>
+  <figcaption style="font-size: smaller;">Figura 8</figcaption>
+</p>
+
+Depois, incluímos a média e o desvio padrão para analisar o novo comportamento dos dados (figura 9):
+
+<p align="center">
+  <a href="">
+    <img src="Imagens\dados-estacionarios-media-desvio-padrao.PNG">
+  </a>
+  <figcaption style="font-size: smaller;">Figura 9</figcaption>
+</p>
+
+Depois, aplicamos novamente o teste de Dickey-Fuller para verificar se a base tinha se tornado estacionária (figura 10):
+
+<p align="center">
+  <a href="">
+    <img src="Imagens\Resultado-segundo-teste-adf.PNG">
+  </a>
+  <figcaption style="font-size: smaller;">Figura 10</figcaption>
+</p>
+
+E conseguimos provar pelo p-value=0.0 e pelo valor do teste estatístico, que a série tinha se tornado estacionária.
+
+Aplicamos as funções de autocorrelação na série (figura 11), e os gráficos ACF (figura 12) E PACF (figura 13):
+
+<p align="center">
+  <a href="">
+    <img src="Imagens\graficos-autocorrelacao.PNG">
+  </a>
+  <figcaption style="font-size: smaller;">Figura 11</figcaption>
+</p>
+
+<p align="center">
+  <a href="">
+    <img src="Imagens\grafico-acf.PNG">
+  </a>
+  <figcaption style="font-size: smaller;">Figura 12</figcaption>
+</p>
+
+
+<p align="center">
+  <a href="">
+    <img src="Imagens\grafico-pacf.PNG">
+  </a>
+  <figcaption style="font-size: smaller;">Figura 13</figcaption>
+</p>
+
+A autocorrelação (ACF) se dá quando comparamos os valores do presente com valores do passado de uma mesma série.
+
+A diferença entre a autocorrelação e a autocorrelação parcial (PACF) é quase um detalhe: em uma ACF temos a correlação direta e indireta e em uma PACF apenas a correlação direta.
+
+Exemplificando, com a ACF vemos a correlação direta do mês de janeiro em março e também a correlação indireta que o mês de janeiro teve em fevereiro que também teve em março.
+
+Depois de estudarmos a estacionariedade da série, optamos por utilizar a base original, pois ela não exibe uma tendência de longo prazo. 
+
+Isso implica que não há uma direção clara de aumento ou diminuição dos preços ao longo do tempo.
+Dessa forma, divimos a série entre a base de treino e a base de teste para aplicação dos modelos.
+
+
+# Modelos preditivos
 
 A concepção da aplicação foi fundamentada no padrão arquitetural MVC (Model View Controller), sendo implementada por meio do ASP.NET Core.
 
