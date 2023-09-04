@@ -135,7 +135,7 @@ A figura 6 demonstra essa decomposição.
 
 Podemos observar que os dados não apresentam uma tendência explicita, porém para determinar se de fato nossa série temporal é estacionária, precisamos realizar o teste de Dickey-Fuller.
 
-Consideramos uma série estacionária quando a mesma apresenta propriedade estatísticas estáveis ao longo do tempo (média e variância).
+Consideramos uma série estacionária quando a mesma apresenta propriedades estatísticas estáveis ao longo do tempo (média e variância).
 
 Para determinados modelos, como por exemplo o ARIMA, é necessário que a série temporal seja estacionária. 
 
