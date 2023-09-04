@@ -35,27 +35,27 @@ O Tech Challenge foi divido em três etapas:
 
 Foram utilizadas as seguintes bibliotecas para o desenvolvimento do projeto:
 
--Pandas (https://pandas.pydata.org/);
+- [Pandas](https://pandas.pydata.org/);
 
--Numpy (https://numpy.org/);
+- [Numpy](https://numpy.org/);
 
--Statsmodels (https://www.statsmodels.org/stable/index.html);
+- [Statsmodels](https://www.statsmodels.org/stable/index.html);
 
--Matplotlib (https://matplotlib.org/);
+- [Matplotlib](https://matplotlib.org/);
 
--Seaborn (https://seaborn.pydata.org/);
+- [Seaborn](https://seaborn.pydata.org/);
 
--Pmdarima (https://pypi.org/project/pmdarima/);
+- [Pmdarima](https://pypi.org/project/pmdarima/);
 
--Prophet (https://pypi.org/project/prophet/);
+- [Prophet](https://pypi.org/project/prophet/);
 
--Sklearn (https://scikit-learn.org/stable/).
+- [Sklearn](https://scikit-learn.org/stable/).
 
 # Analise exploratoria de dados (EDA)
 
 Iniciamos o projeto com a análise dos dados.
 
-Exportamos uma base de dados histórica dos últimos 10 anos da Ibovespa, com o valor do fechamento mensal da bolsa de valores (https://br.investing.com/indices/bovespa-historical-data), para avaliar o comportamento dos dados.
+Exportamos uma base de dados histórica dos últimos 10 anos da Ibovespa, com o valor do fechamento mensal da bolsa de valores [Ibovespa](https://br.investing.com/indices/bovespa-historical-data), para avaliar o comportamento dos dados.
 
 Através do gráfico obtido (figura 1), podemos observar que antes de 2021, os valores tinham um comportamento que evidenciava uma certa tendencia a crescimento do fechamento. 
 
@@ -70,7 +70,7 @@ Dessa forma, para o nosso modelo estamos utilizando uma base histórica diária 
   <a href=" ">
     <img src="Imagens\Fechamento Ibovespa últimos 10 anos.PNG" alt="webapp-architecture">
   </a>
-  <figcaption style="font-size: smaller; text-align: center;">Figura 1</figcaption>
+  <caption style="font-size: smaller; text-align: center;">Figura 1</caption>
 </p>
 
 
@@ -82,16 +82,16 @@ Observando o gráfico não encontramos uma tendencia evidente dos dados.
   <a href=" ">
     <img src="Imagens\Fechamento Ibovespa-2021-2023.PNG" alt="webapp-architecture">
   </a>
-  <figcaption style="font-size: smaller;">Figura 2</figcaption>
+  <caption style="font-size: smaller;">Figura 2</caption>
 </p>
 
 Assim, criamos um gráfico com a média e o desvio padrão junto dos dados originais (figura 3);
 
 <p align="center">
   <a href=" ">
-  <img src="Imagens\Fechamento-media-desvio-padrao.PNG" alt="webapp-architecture">
-   </a>
-  <figcaption style="font-size: smaller;">Figura 3</figcaption>
+   <img src="Imagens\Fechamento-media-desvio-padrao.PNG" alt="webapp-architecture">
+  </a>
+  <caption style="font-size: smaller;"> Figura 3</caption>
 </p>
 
 O próximo gráfico é um histrograma, indicando a distribuição dos dados (figura 4);
@@ -100,8 +100,8 @@ O próximo gráfico é um histrograma, indicando a distribuição dos dados (fig
 <p align="center">
   <a href=" ">
     <img src="Imagens\Histrograma-ibovespa.PNG">
- </a>
-  <figcaption style="font-size: smaller;">Figura 4</figcaption>
+  </a>
+  <caption style="font-size: smaller;">Figura 4</caption>
 </p>
 
 E por fim, temos um gráfico analisando a % de variancia acumulada das ações (figura 5), indicando o desempenho do mercado nos ultimos anos:
@@ -110,18 +110,18 @@ E por fim, temos um gráfico analisando a % de variancia acumulada das ações (
   <a href=" ">
     <img src="Imagens\Acumulo-variacao-porcental-ibovespa.PNG">
    </a>
-  <figcaption style="font-size: smaller;">Figura 5</figcaption>
+  <caption style="font-size: smaller;">Figura 5</caption>
 </p>
 
 # Métodos aplicados
 
 Após definido o período de interesse, fizemos a decomposição dos dados afim de determinar os seguintes pontos:
 
--Tendencia (direção de uma série temporal ao longo do tempo);
+- Tendencia (direção de uma série temporal ao longo do tempo);
 
--Sazonalidade (fenômenos que ocorrem durante o tempo se repetem a cada período idêntico de tempo);
+- Sazonalidade (fenômenos que ocorrem durante o tempo se repetem a cada período idêntico de tempo);
 
--Resíduo (variação aleatória de uma série temporal, que não pode ser explicada por algum componente. Os ruídos podem ocorrer definindo fatores externos imprevisíveis ou por erros de medições. );
+- Resíduo (variação aleatória de uma série temporal, que não pode ser explicada por algum componente. Os ruídos podem ocorrer definindo fatores externos imprevisíveis ou por erros de medições. );
 
 A figura 6 demonstra essa decomposição.
 
@@ -130,7 +130,7 @@ A figura 6 demonstra essa decomposição.
   <a href="">
     <img src="Imagens\decomposicao-dos-dados.PNG">
   </a>
-  <figcaption style="font-size: smaller;">Figura 6</figcaption>
+  <caption style="font-size: smaller;">Figura 6</caption>
 </p>
 
 Podemos observar que os dados não apresentam uma tendência explicita, porém para determinar se de fato nossa série temporal é estacionária, precisamos realizar o teste de Dickey-Fuller.
@@ -145,7 +145,7 @@ O teste de Dickey-Fuller apresenta parametros que servem para determinamos se no
   <a href="">
     <img src="Imagens\Resultado-primeiro-teste-adf.PNG">
   </a>
-  <figcaption style="font-size: smaller;">Figura 7</figcaption>
+  <caption style="font-size: smaller;">Figura 7</caption>
 </p>
 
 Assim, era necessário que transformassemos essa série em estacionária para podermos aplicar o modelo ARIMA.
@@ -156,7 +156,7 @@ Para tanto, aplicamos o método da diferenciação (figura 8):
   <a href="">
     <img src="Imagens\dados-estacionarios-primeira-diferenciacao-aplicada.PNG">
   </a>
-  <figcaption style="font-size: smaller;">Figura 8</figcaption>
+  <caption style="font-size: smaller;">Figura 8</caption>
 </p>
 
 Depois, incluímos a média e o desvio padrão para analisar o novo comportamento dos dados (figura 9):
@@ -165,7 +165,7 @@ Depois, incluímos a média e o desvio padrão para analisar o novo comportament
   <a href="">
     <img src="Imagens\dados-estacionarios-media-desvio-padrao.PNG">
   </a>
-  <figcaption style="font-size: smaller;">Figura 9</figcaption>
+  <caption style="font-size: smaller;">Figura 9</caption>
 </p>
 
 Depois, aplicamos novamente o teste de Dickey-Fuller para verificar se a base tinha se tornado estacionária (figura 10):
@@ -174,7 +174,7 @@ Depois, aplicamos novamente o teste de Dickey-Fuller para verificar se a base ti
   <a href="">
     <img src="Imagens\Resultado-segundo-teste-adf.PNG">
   </a>
-  <figcaption style="font-size: smaller;">Figura 10</figcaption>
+  <caption style="font-size: smaller;">Figura 10</caption>
 </p>
 
 E conseguimos provar pelo p-value=0.0 e pelo valor do teste estatístico, que a série tinha se tornado estacionária.
@@ -185,14 +185,14 @@ Aplicamos as funções de autocorrelação na série (figura 11), e os gráficos
   <a href="">
     <img src="Imagens\graficos-autocorrelacao.PNG">
   </a>
-  <figcaption style="font-size: smaller;">Figura 11</figcaption>
+  <caption style="font-size: smaller;">Figura 11</caption>
 </p>
 
 <p align="center">
   <a href="">
     <img src="Imagens\grafico-acf.PNG">
   </a>
-  <figcaption style="font-size: smaller;">Figura 12</figcaption>
+  <caption style="font-size: smaller;">Figura 12</caption>
 </p>
 
 
@@ -200,7 +200,7 @@ Aplicamos as funções de autocorrelação na série (figura 11), e os gráficos
   <a href="">
     <img src="Imagens\grafico-pacf.PNG">
   </a>
-  <figcaption style="font-size: smaller;">Figura 13</figcaption>
+  <caption style="font-size: smaller;">Figura 13</caption>
 </p>
 
 A autocorrelação (ACF) se dá quando comparamos os valores do presente com valores do passado de uma mesma série.
@@ -223,11 +223,11 @@ O modelo ARIMA (Autoregressive Integrated Moving Average) é uma técnica de pre
 
 Ele é composto por três principais componentes:
 
--Componente Auto-Regressivo (AR - Autoregressive): Este componente modela a relação entre o valor atual da série temporal e seus valores passados. 
+- Componente Auto-Regressivo (AR - Autoregressive): Este componente modela a relação entre o valor atual da série temporal e seus valores passados. 
 
--Componente de Média Móvel (MA - Moving Average): Este componente modela a relação entre o valor atual da série temporal e os erros de previsão passados. 
+- Componente de Média Móvel (MA - Moving Average): Este componente modela a relação entre o valor atual da série temporal e os erros de previsão passados. 
 
-Componente de Integração (I - Integrated): A parte "Integrada" do ARIMA se refere ao número de vezes que a série temporal precisa ser diferenciada para torná-la estacionária. 
+- Componente de Integração (I - Integrated): A parte "Integrada" do ARIMA se refere ao número de vezes que a série temporal precisa ser diferenciada para torná-la estacionária. 
 
 Podemos perceber que a previsão dada pelo modelo foi uma linha contínua.
 
@@ -237,7 +237,7 @@ Podemos perceber que a previsão dada pelo modelo foi uma linha contínua.
   <a href="">
     <img src="Imagens\grafico-previsao-arima.PNG">
   </a>
-  <figcaption style="font-size: smaller;">Figura 14</figcaption>
+  <caption style="font-size: smaller;">Figura 14</caption>
 </p>
 
 
@@ -252,7 +252,7 @@ Ao contrário da previsão do ARIMA, o prophet (figura 15) foi capaz de prever o
   <a href="">
     <img src="Imagens\previsao-prophet.PNG">
   </a>
-  <figcaption style="font-size: smaller;">Figura 15</figcaption>
+  <caption style="font-size: smaller;">Figura 15</caption>
 </p>
 
 Analisando a comparação entre os dados reais (base de validação) e a previsão realizada pelo Prophet (figura 16), podemos ver que por vezes, os valores reais fogem do intervalo de confiança da predisão do modelo.
@@ -263,7 +263,7 @@ Analisando a comparação entre os dados reais (base de validação) e a previs�
   <a href="">
     <img src="Imagens\valores-reais-previsao-prophet.PNG">
   </a>
-  <figcaption style="font-size: smaller;">Figura 16</figcaption>
+  <caption style="font-size: smaller;">Figura 16</caption>
 </p>
 
 Assim, para definir qual modelo performou melhor, iniciamos a avaliação de performance dos modelos.
@@ -272,21 +272,21 @@ Assim, para definir qual modelo performou melhor, iniciamos a avaliação de per
 
 Primeiramente, calculamos a performance dos modelos através dos parametros abaixos:
 
--MAE (Mean Absolute Error - Erro Médio Absoluto):
+- MAE (Mean Absolute Error - Erro Médio Absoluto):
 Ele mede o erro médio absoluto, ou seja, o quão distantes as previsões estão, em média, dos valores reais.
 
--MSE (Mean Squared Error - Erro Médio Quadrático):
+- MSE (Mean Squared Error - Erro Médio Quadrático):
 Ele penaliza erros maiores de forma mais significativa do que o MAE devido à natureza quadrática das diferenças.
 
--RMSE (Root Mean Squared Error - Raiz do Erro Médio Quadrático):
+- RMSE (Root Mean Squared Error - Raiz do Erro Médio Quadrático):
 Ele é útil para interpretar o erro de previsão em uma escala semelhante aos valores reais.
 
 
--MAPE (Mean Absolute Percentage Error - Erro Médio Percentual Absoluto):
+- MAPE (Mean Absolute Percentage Error - Erro Médio Percentual Absoluto):
 Ele fornece uma medida de erro como uma porcentagem da magnitude dos valores reais.
 
 
--WMAPE (Weighted Mean Absolute Percentage Error - Erro Médio Percentual Absoluto Ponderado):
+- WMAPE (Weighted Mean Absolute Percentage Error - Erro Médio Percentual Absoluto Ponderado):
 É útil quando você deseja dar mais importância a certos pontos de dados em sua avaliação.
 
 Para o modelo arima, primeiro calculamos o MAE,MSE, RMSE e MAPE (figura 17), e depois calculamos o WMAPE (figura 18):
@@ -295,7 +295,7 @@ Para o modelo arima, primeiro calculamos o MAE,MSE, RMSE e MAPE (figura 17), e d
   <a href="">
     <img src="Imagens\performance-arima.PNG">
   </a>
-  <figcaption style="font-size: smaller;">Figura 17</figcaption>
+  <caption style="font-size: smaller;">Figura 17</caption>
 </p>
 
 
@@ -303,7 +303,7 @@ Para o modelo arima, primeiro calculamos o MAE,MSE, RMSE e MAPE (figura 17), e d
   <a href="">
     <img src="Imagens\wmape-arima.PNG">
   </a>
-  <figcaption style="font-size: smaller;">Figura 18</figcaption>
+  <caption style="font-size: smaller;">Figura 18</caption>
 </p>
 
 E fizemos os mesmos cáculos para o modelo Prophet:
@@ -312,7 +312,7 @@ E fizemos os mesmos cáculos para o modelo Prophet:
   <a href="">
     <img src="Imagens\performance-prophet.PNG">
   </a>
-  <figcaption style="font-size: smaller;">Figura 19</figcaption>
+  <caption style="font-size: smaller;">Figura 19</caption>
 </p>
 
 
@@ -320,7 +320,7 @@ E fizemos os mesmos cáculos para o modelo Prophet:
   <a href="">
     <img src="Imagens\wmape-prophet.PNG">
   </a>
-  <figcaption style="font-size: smaller;">Figura 20</figcaption>
+  <caption style="font-size: smaller;">Figura 20</caption>
 </p>
 
 Com isso, finalizamos indicando que no Arima, em média, as previsões têm um erro absoluto de cerca de 6.49 unidades em relação aos valores reais. Enquanto que no Prophet, esse valor sobe para 9.94.
