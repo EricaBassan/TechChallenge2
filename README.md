@@ -217,131 +217,113 @@ Dessa forma, divimos a série entre a base de treino e a base de teste para apli
 
 # Modelos preditivos
 
-A concepção da aplicação foi fundamentada no padrão arquitetural MVC (Model View Controller), sendo implementada por meio do ASP.NET Core.
+O primeiro modelo aplicado foi o ARIMA (figura 14).
 
-No âmbito do negócio, sua responsabilidade é requisitar os recursos restritos disponibilizados pela API de notícias e, posteriormente, apresentando esses elementos aos usuários.
+O modelo ARIMA (Autoregressive Integrated Moving Average) é uma técnica de previsão de séries temporais. Ele é projetado para modelar e prever séries temporais que exibem comportamento estacionário.
 
-Quanto à segurança, a aplicação assume a responsabilidade de transmitir os dados referentes à criação de usuários ou as credenciais de acesso ao Authorization Server. Mais detalhes em [Segurança](#segurança)
+Ele é composto por três principais componentes:
+
+-Componente Auto-Regressivo (AR - Autoregressive): Este componente modela a relação entre o valor atual da série temporal e seus valores passados. 
+
+-Componente de Média Móvel (MA - Moving Average): Este componente modela a relação entre o valor atual da série temporal e os erros de previsão passados. 
+
+Componente de Integração (I - Integrated): A parte "Integrada" do ARIMA se refere ao número de vezes que a série temporal precisa ser diferenciada para torná-la estacionária. 
+
+Podemos perceber que a previsão dada pelo modelo foi uma linha contínua.
 
 
-Caso as credenciais estiverem corretas, a aplicação irá receber um JWT assinado (JWS - Json Web Signature) e irá autenticar o usuário via cookie. Então, para cada requisição feita à API de notícias o mesmo JWT será enviado pelo header.
 
 <p align="center">
   <a href="">
-    <img src=".github\images\webapp-architecture.png" alt="webapp-architecture">
+    <img src="Imagens\grafico-previsao-arima.PNG">
   </a>
+  <figcaption style="font-size: smaller;">Figura 14</figcaption>
 </p>
 
-## Core API
 
-Work in Progress
+O segundo modelo utilizado foi o Prophet.
 
-## Auth API (Authorization Server)
+O Prophet é uma biblioteca desenvolvida pelo Facebook para a previsão de séries temporais. 
 
-Foi adotado o estilo arquitetural REST (Representational State Transfer) com camadas, utilizando ASP.NET Core.
+Ao contrário da previsão do ARIMA, o prophet (figura 15) foi capaz de prever os dados levando em conta a sazonalidade dos dados, como feriados e tendencias não lineares.
 
-A camada de <b>Filtros</b> lidam com exceções e tratamento de Model State inválidos.
-
-A camada de <b>Controllers</b> direciona o fluxo das requisições. É responsável por expor os parâmetros públicos da chave assimétrica, realizar chamadas ao Identity para autenticação/autorização do usuário e criar o JWT utilizando as classes de Serviços.
-
-A camada de <b>Data</b> se integra com classes do Identity (User e Role) e com o Entity Framework para mapeamento de dados.
-
-A camada de <b>Services</b> possui serviços com responsabilidades diversas como: gerenciar (buscar ou persistir) a chave privada no Azure Key Vault, assinar um token digitalmente com criptografia RSA e a criação da chave assimétrica através de criptografia RSA.
-
-O <b>Background Service</b> que vemos abaixo é uma parte da camada de serviços. Ele constitui uma solução simples para a rotação da chave privada que gera os tokens. O ideal é possuir uma solução mais robusta, consistindo em uma aplicação que gerencia a rotação da chave para todas as instâncias de aplicações que a utilizam.
 
 <p align="center">
   <a href="">
-    <img src=".github\images\architecture-auth.png" alt="api-architecture">
+    <img src="Imagens\previsao-prophet.PNG">
   </a>
+  <figcaption style="font-size: smaller;">Figura 15</figcaption>
 </p>
 
-# Segurança
+Analisando a comparação entre os dados reais (base de validação) e a previsão realizada pelo Prophet (figura 16), podemos ver que por vezes, os valores reais fogem do intervalo de confiança da predisão do modelo.
 
-A orquestração do fluxo de autenticação do Tech News foi fundamentada na documentação do [OAuth 2.0](https://datatracker.ietf.org/doc/html/rfc6749) bem como na documentação do [JWT para Access Tokens OAuth 2.0](https://datatracker.ietf.org/doc/html/rfc9068).
+
 
 <p align="center">
   <a href="">
-    <img src=".github\images\auth-flow-01.png" alt="api-architecture">
+    <img src="Imagens\valores-reais-previsao-prophet.PNG">
   </a>
+  <figcaption style="font-size: smaller;">Figura 16</figcaption>
 </p>
+
+Assim, para definir qual modelo performou melhor, iniciamos a avaliação de performance dos modelos.
+
+# Resultados
+
+Primeiramente, calculamos a performance dos modelos através dos parametros abaixos:
+
+-MAE (Mean Absolute Error - Erro Médio Absoluto):
+Ele mede o erro médio absoluto, ou seja, o quão distantes as previsões estão, em média, dos valores reais.
+
+-MSE (Mean Squared Error - Erro Médio Quadrático):
+Ele penaliza erros maiores de forma mais significativa do que o MAE devido à natureza quadrática das diferenças.
+
+-RMSE (Root Mean Squared Error - Raiz do Erro Médio Quadrático):
+Ele é útil para interpretar o erro de previsão em uma escala semelhante aos valores reais.
+
+
+-MAPE (Mean Absolute Percentage Error - Erro Médio Percentual Absoluto):
+Ele fornece uma medida de erro como uma porcentagem da magnitude dos valores reais.
+
+
+-WMAPE (Weighted Mean Absolute Percentage Error - Erro Médio Percentual Absoluto Ponderado):
+É útil quando você deseja dar mais importância a certos pontos de dados em sua avaliação.
+
+Para o modelo arima, primeiro calculamos o MAE,MSE, RMSE e MAPE (figura 17), e depois calculamos o WMAPE (figura 18):
 
 <p align="center">
   <a href="">
-    <img src=".github\images\auth-flow-02.png" alt="api-architecture">
+    <img src="Imagens\performance-arima.PNG">
   </a>
+  <figcaption style="font-size: smaller;">Figura 17</figcaption>
 </p>
+
 
 <p align="center">
   <a href="">
-    <img src=".github\images\auth-flow-0201.png" alt="api-architecture">
+    <img src="Imagens\wmape-arima.PNG">
   </a>
+  <figcaption style="font-size: smaller;">Figura 18</figcaption>
 </p>
+
+E fizemos os mesmos cáculos para o modelo Prophet:
 
 <p align="center">
   <a href="">
-    <img src=".github\images\auth-flow-03.png" alt="api-architecture">
+    <img src="Imagens\performance-prophet.PNG">
   </a>
+  <figcaption style="font-size: smaller;">Figura 19</figcaption>
 </p>
+
 
 <p align="center">
   <a href="">
-    <img src=".github\images\auth-flow-04.png" alt="api-architecture">
+    <img src="Imagens\wmape-prophet.PNG">
   </a>
+  <figcaption style="font-size: smaller;">Figura 20</figcaption>
 </p>
 
+Com isso, finalizamos indicando que no Arima, em média, as previsões têm um erro absoluto de cerca de 6.49 unidades em relação aos valores reais. Enquanto que no Prophet, esse valor sobe para 9.94.
+Além disso, o erro absoluto do Arima foi menor do que o Prophet.
 
 
-## Rotação das Chaves
-Para a rotação da chave privada optamos por uma solução simples para o tech challenge, um <b>background service</b>. O ideal seria uma solução mais robusta, consistindo em uma aplicação que gerencia a rotação da chave para todas as instâncias de aplicações que a utilizam. 
-
-O serviço rotaciona a chave privada a cada X dias (parametrizado por variável). Utiliza-se o algoritmo de criptografia assimétrica [RSA](https://pt.wikipedia.org/wiki/RSA_(sistema_criptogr%C3%A1fico)) para a criação de uma nova chave. 
-
-Os parâmetros privados da chave são persistidos no Azure Key Vault, enquanto os parâmetros públicos são encapsulados em um JWK (Json Web Key) e expostos em uma URL com uma lista de JWKS (Json Web Key Set). Por exemplo <b>url-api/jwks</b>. 
-
-São esses parâmetros públicos disponíveis nessa URL que as API's de recursos protegidos irão validar o JWT recebido.
-
-## Prevenção contra possíveis ataques
-
-Algumas camadas adicionais de segurança foram implementadas para evitar alguns dos ataques mais comuns.
-
-| Nome | Prevenção Implementada|
-| :---------: | :---------: |
-| <p style="width:260px; text-align: left;">SQL Injection</p> | <p style="text-align: left;">Qualquer acesso aos dados é feito através de procedures parametrizadas e do ORM.</p> |
-| <p style="width:260px; text-align: left;">Brute Force</p> | <p style="text-align: left;">Lockout após X tentativas erradas de autenticação, Hash de senhas utilizando algoritmo Bcrypt e formato rígido de senha (mínimo: 8 caracteres, 1 dígito, 1 minúscula, 1 maiúscula e 1 caracter especial)</p> |
-| <p style="width:260px; text-align: left;">Cross Site Scripting (XSS)</p> | <p style="text-align: left;">Validações server-side do que recebemos do browser, cookies de autenticação como HTTP Only e criptografado para evitar acessá-los por script.</p> |
-| <p style="width:260px; text-align: left;">Cross Site Request Forgery (CSRF)</p> | <p style="text-align: left;">Validação de Anti Forgery Token e CORS (habilitado por padrão pelo ASP .NET Core).</p> |
-| <p style="width:260px; text-align: left;">Man in the Middle</p> | <p style="text-align: left;">Habilitado HSTS para informar ao cliente que somente requisições HTTPS são aceitas e redirecionamento de protocolos HTTP para HTTPS.</p> |
-
-
-# CI / CD
-
-O CI / CD do TechNews consiste em três pipelines: <b>Azure Resources</b>, <b>Build</b> e <b>Deploy</b>.
-
-O pipeline de <b>Azure Resources</b> cria todos os recursos descritos na [Arquitetura](#arquitetura), fazendo uso dos ARM Templates disponíveis na pasta "azure". Os recursos criados são: Key Vault, Container Registry, SQL Databases e Blob Storage.
-
-O pipeline de <b>Build</b> assume o papel de Integração Contínua (CI), realizando a compilação das aplicações juntamente com suas dependências. Além disso, compila as imagens com base os dockerfiles, gerando os artefatos que são publicados no Container Registry.
-
-O pipeline de <b>Deploy</b> assume o papel de Entrega Contínua (CD), criando as instâncias dos containers no Azure Container Instance com base nas imagens do Container Registry.
-
-<!-- TODO: - Database scripts ou Migrations -->
-
-# Executando a aplicação
-É possível executar a aplicação realizando a configuração manualmente, ou utilizando Docker (recomendado).
-
-## Docker
-Para rodar localmente, é possível utilizar o Docker.  
-Abaixo o passo a passo para executar a aplicação localmente:
-- Realizar o clone do projeto na pasta desejada:
-    bash
-        git clone https://github.com/pistoladas-group/tech-challenge-02.git
-    
-- Configurar certificados para habilitar conexão via https:
-    bash
-        dotnet dev-certs https -ep "$env:USERPROFILE\.aspnet\https\technews.pfx"  -p "OVmTv9lykb0)>m=wWcQaJ"
-        dotnet dev-certs https --trust
-    
-- Utilizar o comando abaixo para subir a aplicação utilizando docker-compose:
-    bash
-        docker-compose -f docker-compose.debug.yml up --build
-    
