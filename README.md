@@ -119,9 +119,9 @@ Após definido o período de interesse, fizemos a decomposição dos dados afim 
 
 - Tendencia (direção de uma série temporal ao longo do tempo);
 
-- Sazonalidade (fenômenos que ocorrem durante o tempo se repetem a cada período idêntico de tempo);
+- Sazonalidade (fenômenos que ocorrem durante o tempo e se repetem a cada período idêntico de tempo);
 
-- Resíduo (variação aleatória de uma série temporal, que não pode ser explicada por algum componente. Os ruídos podem ocorrer definindo fatores externos imprevisíveis ou por erros de medições. );
+- Resíduo (variação aleatória de uma série temporal, que não pode ser explicada por algum componente. Os ruídos podem ocorrer definindo fatores externos imprevisíveis ou por erros de medições).
 
 A figura 6 demonstra essa decomposição.
 
