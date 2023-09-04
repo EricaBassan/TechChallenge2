@@ -94,7 +94,7 @@ Assim, criamos um gráfico com a média e o desvio padrão junto dos dados origi
   <caption style="font-size: smaller;"> Figura 3</caption>
 </p>
 
-O próximo gráfico é um histrograma, indicando a distribuição dos dados (figura 4);
+O próximo gráfico é um histograma, indicando a distribuição dos dados (figura 4);
 
 
 <p align="center">
