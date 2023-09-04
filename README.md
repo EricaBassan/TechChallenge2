@@ -26,7 +26,7 @@
 
 # Sobre
 Este projeto foi criado para atender os requisitos do projeto Tech Challenge da [Faculdade de Tecnologia - FIAP](https://postech.fiap.com.br/?gclid=Cj0KCQjwnf-kBhCnARIsAFlg49228y9z3y6lf_mWZEekgcxZRZBDavxtRT-zAUNs33TZOJtXpGVMNlAaAue5EALw_wcB).<br>
-O Tech Challenge foi ser divido em três etapas:
+O Tech Challenge foi divido em três etapas:
 - Aplicação de um modelo de machine learning para projetar os valores de fechamento da bolsa de valores (Ibovespa).
 - Atinigir uma acurácia maior do que 70% com o modelo.
 - Justificar métodos realizados e os resultados obtidos.
