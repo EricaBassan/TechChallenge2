@@ -139,7 +139,7 @@ Consideramos uma série estacionária quando a mesma apresenta propriedades esta
 
 Para determinados modelos, como por exemplo o ARIMA, é necessário que a série temporal seja estacionária. 
 
-O teste de Dickey-Fuller apresenta parametros que servem para determinamos se nossa série é estacionária ou não. No caso, o teste revelou que nossa série era não estacionária (figura 7), pois o p-value apresentado era acima de 0.05 e os valores do teste estatístico era maior do que os valores críticos.
+O teste de Dickey-Fuller apresenta parametros que servem para determinarmos se nossa série é estacionária ou não. No caso, o teste revelou que nossa série era não estacionária (figura 7), pois o p-value apresentado era acima de 0.05 e os valores do teste estatístico era maior do que os valores críticos.
 
 <p align="center">
   <a href="">
@@ -148,7 +148,7 @@ O teste de Dickey-Fuller apresenta parametros que servem para determinamos se no
   <caption style="font-size: smaller;">Figura 7</caption>
 </p>
 
-Assim, era necessário que transformassemos essa série em estacionária para podermos aplicar o modelo ARIMA.
+Assim, era necessário que transformássemos essa série em estacionária para podermos aplicar o modelo ARIMA.
 
 Para tanto, aplicamos o método da diferenciação (figura 8):
 
@@ -179,7 +179,7 @@ Depois, aplicamos novamente o teste de Dickey-Fuller para verificar se a base ti
 
 E conseguimos provar pelo p-value=0.0 e pelo valor do teste estatístico, que a série tinha se tornado estacionária.
 
-Aplicamos as funções de autocorrelação na série (figura 11), e os gráficos ACF (figura 12) E PACF (figura 13):
+Aplicamos as funções de autocorrelação na série (figura 11), e os gráficos ACF (figura 12) e PACF (figura 13):
 
 <p align="center">
   <a href="">
