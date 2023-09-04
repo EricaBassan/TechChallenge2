@@ -55,7 +55,7 @@ Foram utilizadas as seguintes bibliotecas para o desenvolvimento do projeto:
 
 Iniciamos o projeto com a análise dos dados.
 
-Exportamos uma base de dados histórica dos últimos 10 anos da [Ibovespa](https://br.investing.com/indices/bovespa-historical-data), com o valor do fechamento mensal dos valores ,para avaliar o comportamento dos dados.
+Exportamos uma base de dados histórica dos últimos 10 anos da [Ibovespa](https://br.investing.com/indices/bovespa-historical-data), com o valor do fechamento mensal, para avaliar o comportamento dos dados.
 
 Através do gráfico obtido (figura 1), podemos observar que antes de 2021, os valores tinham um comportamento que evidenciava uma certa tendencia a crescimento do fechamento. 
 
